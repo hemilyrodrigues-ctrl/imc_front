@@ -44,10 +44,10 @@
 
                 });
                 const resultado = await response.json();
-                document.getElementById.('resultadoImc').innerHTML
+                document.getElementById('resultadoImc').innerHTML= formatarResposta(resultado);
             } catch (error) {
-                
-            }
+                document.getElementById('resultadoImc').innerHTML= formatarResposta({ erro:"OCORREU UM ERRO INESPERADO, TENTE MAIS TARDE"
+           }) }
 
         }
      </script>
