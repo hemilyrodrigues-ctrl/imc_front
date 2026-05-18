@@ -3,6 +3,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tabs com api</title>
+ 
+    <style>
+        body{ 
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            background:#f4f4f4;
+
+
+        }
+        .tabs{
+            display :flex ;
+            margin-bottom: 10px;
+
+        }
+        .tab-btn{
+            flex:1;
+            padding: 15px; 
+            cursor: pointer;
+            border: none;
+            background: #ddd;
+            font-size: 16px;
+        }
+        .tab-btn.active{
+            background: #007bff;
+            color: #f4f4f4;
+        }
+        .tab-content{
+            display: none;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .tab-content.active{
+            display: block;
+        }
+        input{
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        button{
+            padding: 12px;
+            background: #28a745;
+            color: #f4f4f4;
+            border:none   ;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .resultado{
+            margin-top: 15px;
+            padding: 15px;
+            background: #eee;
+            border-radius: 5px;
+            min-height: 40px;
+        }
+
+    </style>
+
 </head>
 <body>
     <div class="tabs">
@@ -10,7 +72,7 @@
         <button class="tab-btn " onclick="AbrirTab(1)">média</button>
     </div>
     <div class="tab-content active">
-        <h2>calculae IMC</h2>
+        <h2>calcular IMC</h2>
         <input type="text" id="nome" placeholder="DIGITE SEU NOME:">
         <input type="number" id="idade" placeholder="DIGITE SUA IDADE">
         <input type="number" id="altura" placeholder="DIGITE SUA ALTURA">
@@ -27,6 +89,29 @@
             document.querySelectorAll('.tab-btn')[index].classList.add('active');
 
         }
+        function formatarResposta(resultado){
+            if(resultado.erro){
+                return`<div style="color:#721c24; padding:15px;background:#f8d7da;border:1px solid #f5c6cb:; border-radius:5px;font-weight:bold">
+                   erro:${resultado.erro} </div>`
+            }
+            let html=`<div stile="padding:15px;background:#d4eda;color:#155724;border:1px solid #c3e6cb; border-radius:5px;"`
+                html+=`<h3 style="margin-top=0; margin-bottom:15px; border-bottom:1px solid #c3e6cb; pedding-bottom:5px; ">sucesso</h3>`
+                html+=`<ul style="list-style-type:none;padding-left:0;margin:0;" `;
+
+                for(const[key,value]of Object.entries(resultado)){
+                    let lebel=key.charAt(0).toLocaleUpperCase()+key.slice(1)
+                    if (key.toLocaleLowerCase()==="imc"){
+                        lebel="IMC";
+                    }
+                    html+=`<li style="margin-bottom:8px;font-size:16px">
+                        <strong style="color:#0b2e13">${label}</strong> ${value}
+                        </li>`
+
+                }
+                html+=`</ul>
+                </div>`;
+                return html;
+          }
         async function  CalcularImc(){
             const dados={
                 nome:document.getElementById('nome').value,
@@ -46,7 +131,8 @@
                 const resultado = await response.json();
                 document.getElementById('resultadoImc').innerHTML= formatarResposta(resultado);
             } catch (error) {
-                document.getElementById('resultadoImc').innerHTML= formatarResposta({ erro:"OCORREU UM ERRO INESPERADO, TENTE MAIS TARDE"
+                document.getElementById('resultadoImc').innerHTML= formatarResposta({ 
+                    erro:"OCORREU UM ERRO INESPERADO, TENTE MAIS TARDE"
            }) }
 
         }
