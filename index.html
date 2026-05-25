@@ -4,64 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabs com api</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 700px;
-            margin: 40px auto;
-            background-color: #f4f4f4;
-        }
-        .tabs{
-            display: flex;
-            margin-bottom: 10px;
-        }
-        .tab-btn{
-            flex: 1;
-            padding: 15px;
-            cursor: pointer;
-            border: none;
-            background-color: #ddd;
-            font-size: 16;
-         }
-         .tab-btn.active{
-            background-color: #007bff;
-            color: #f4f4f4;
-         }
-         .tab-content{
-            display: none;
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-         }
-         .tab-content.active{
-            display: block; 
-        }
-        input{
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-        button{
-            padding: 12px;
-            background-color: #28a745;
-            color: #f4f4f4;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        .resultado{
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #eee;
-            border-radius: 5px;
-            min-height: 40px;
-
-        }
-    
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -79,6 +22,7 @@
         <button onclick="calcularImc()">Calcular IMC</button>
         <div class="resultado" id="resultadoImc"></div>
     </div>
+    
     <script>
         function abrirTab(index) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
@@ -117,14 +61,14 @@
                 peso: document.getElementById('peso').value,
             }
             try {
-                const Response = await fetch("http://localhost3000/imc", {
+                const Res = await fetch("http://localhost:3000/imc", {
                     mathod: "POST", 
-                    Headers: {
+                    headers: {
                         "content-type": "application/json"
                     },
                     body:JSON.stringify(dados)
                 });
-                const resultado = await response.json();
+                const resultado = await res.json();
                 document.getElementById("resultadoImc").innerHTML = formatarResposta(resultado)
              } catch (error) {
                 document.getElementById("resultadoImc").innerHTML = formatarResposta({
@@ -132,7 +76,8 @@
                 }); 
             }
 
-        }
+            }
+        
     </script>
 </body>
 
