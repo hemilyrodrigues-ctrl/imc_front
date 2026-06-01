@@ -86,7 +86,7 @@ async function calcularImc() {
 async function calcularMedia() {
 
     const dados = {
-        nome: document.getElementById('nome2').value,
+        nome2: document.getElementById('nome2').value,
         nota1: document.getElementById('nota1').value,
         nota2: document.getElementById('nota2').value,
     };
@@ -110,5 +110,40 @@ async function calcularMedia() {
     } catch (error) {
         document.getElementById("resultadoMedia").innerHTML =
             formatarResposta({ erro: "Erro ao calcular média" });
+    }
+}
+
+async function login() {
+
+    const dados = {
+        user: document.getElementById('email').value,
+        senha: document.getElementById('senha').value,
+     
+    };
+
+    try {
+        const res = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
+
+        const resultado = await res.json();
+
+        if (resultado.token) {
+            window.location.href = "index.html";
+        }
+        else{
+            alert(resultado.erro)
+        }
+
+
+        
+
+    } catch (error) {
+        document.getElementById("email").innerHTML =
+            formatarResposta({ erro: "erro ao encontra user" });
     }
 }
