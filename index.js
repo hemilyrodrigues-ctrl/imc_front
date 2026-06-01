@@ -116,7 +116,7 @@ async function calcularMedia() {
 async function login() {
 
     const dados = {
-        user: document.getElementById('email').value,
+        email: document.getElementById('email').value,
         senha: document.getElementById('senha').value,
      
     };
@@ -143,7 +143,6 @@ async function login() {
         
 
     } catch (error) {
-        document.getElementById("email").innerHTML =
-            formatarResposta({ erro: "erro ao encontra user" });
+        alert(error)
     }
 }
