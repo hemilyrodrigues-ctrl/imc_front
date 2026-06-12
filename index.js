@@ -1,3 +1,9 @@
+if(window.location.pathname.endsWith('index.html')&& 
+!localStorage.getItem('token')){
+    window.location.href='login.html'
+}
+
+
 function abrirTab(index) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -133,6 +139,9 @@ async function login() {
         const resultado = await res.json();
 
         if (resultado.token) {
+          localStorage.setItem("token",resultado.token)
+          
+
             window.location.href = "index.html";
         }
         else{
@@ -145,4 +154,8 @@ async function login() {
     } catch (error) {
         alert(error)
     }
+}
+function logout(){
+    localStorage.removeItem('token')
+    window.location.href='login.html'
 }
