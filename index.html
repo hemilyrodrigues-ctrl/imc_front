@@ -14,15 +14,18 @@
     </div>
 
     <a id=logout class="logout-link" onclick="logout()"> logout</a>
+    <a id=onblur class="onblur-link" onclick="onblur()"> onblur</a>
+ 
     <div class="tab-content active">
-        <h2>Calcular o IMC</h2>
+        <h2>cadrastro cliente</h2>
         <input type="text" id="nome" placeholder="Digite seu nome">
-        <input type="number" id="idade" placeholder="Digite sua idade">
-        <input type="number" id="altura" placeholder="Digite sua altura">
-        <input type="number" id="peso" placeholder="Digite seu peso">
-        <button onclick="calcularImc()">Calcular IMC</button>
-        <div class="resultado" id="resultadoImc"></div>
+        <input type="number" id="CPF" placeholder="Digite seu CPF">
+        <input type="number" id="CEP" placeholder="Digite seu CEP">
+        
+        <button onclick="cadrastrar()">cadrastrar</button>
+        <div class="resultado" id="buscarEndereco"></div>
     </div>
+
 
     <div class="tab-content ">
         <h2>Calcular o média</h2>
